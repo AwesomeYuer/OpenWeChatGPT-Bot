@@ -66,6 +66,8 @@ func Handler(msg *openwechat.Message) {
 				if err != nil {
 					log.Fatalf("add friend agree error : %v", err)
 					return
+				} else {
+					log.Printf("accept new friend : %v", msg.FromUserName)
 				}
 			}
 		}
