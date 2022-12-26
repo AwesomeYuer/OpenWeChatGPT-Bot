@@ -47,6 +47,11 @@ func (g *GroupMessageHandler) ReplyText(msg *openwechat.Message) error {
 	}
 	atText := "@" + groupSender.NickName + " "
 
+	_, err = msg.ReplyText(atText + "收到, 请稍候 ...")
+	if err != nil {
+		return err
+	}
+
 	if UserService.ClearUserSessionContext(sender.ID(), msg.Content) {
 		_, err = msg.ReplyText(atText + "上下文已经清空了，你可以问下一个问题啦。")
 		if err != nil {
