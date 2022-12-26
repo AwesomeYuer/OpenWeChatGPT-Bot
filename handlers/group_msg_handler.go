@@ -34,6 +34,10 @@ func (g *GroupMessageHandler) ReplyText(msg *openwechat.Message) error {
 	group := openwechat.Group{User: sender}
 	log.Printf("Received Group %v Text Msg : %v", group.NickName, msg.Content)
 
+	if !strings.HasPrefix(strings.ToLower(group.NickName), "chatgpt") {
+		return nil
+	}
+
 	// 不是@的不处理
 	// if !msg.IsAt() {
 	// 	return nil
