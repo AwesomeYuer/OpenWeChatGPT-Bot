@@ -60,7 +60,7 @@ func Handler(msg *openwechat.Message) {
 	// 好友申请
 	if msg.IsFriendAdd() {
 		log.Printf("hadler Received msg IsFriendAdd: %v", msg.Content)
-		if strings.ToLower(msg.Content) == "awesomeyuer" {
+		if strings.Contains(msg.Content, " \"content=awesomeyuer\" ") {
 			if config.LoadConfig().AutoPass {
 				_, err := msg.Agree("你好我是基于chatGPT引擎开发的微信机器人，你可以向我提问任何问题。")
 				if err != nil {
