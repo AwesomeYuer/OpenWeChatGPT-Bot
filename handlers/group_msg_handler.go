@@ -99,7 +99,7 @@ func (g *GroupMessageHandler) ReplyText(msg *openwechat.Message) error {
 	reply = strings.Trim(reply, "\n")
 	// 设置上下文
 	UserService.SetUserSessionContext(sender.ID(), requestText, reply)
-	replyText := atText + reply
+	replyText := atText + "\r\n" + reply
 	_, err = msg.ReplyText(replyText)
 	if err != nil {
 		log.Printf("response group error: %v \n", err)
