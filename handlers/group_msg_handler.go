@@ -65,7 +65,19 @@ func (g *GroupMessageHandler) ReplyText(msg *openwechat.Message) error {
 	if requestText == "" {
 		return nil
 	}
-	reply, err := gtp.Completions(requestText, "code-davinci-002")
+	var model1 string = "text-davinci-003"
+	var model2 string = "code-davinci-002"
+	var model string = model1
+
+	if strings.Contains(strings.ToLower(group.NickName), model1) {
+		model = model1
+	} else if strings.Contains(strings.ToLower(group.NickName), model2) {
+		model = model2
+	}
+
+	log.Printf("gpt model: %s \n", model)
+
+	reply, err := gtp.Completions(requestText, model)
 	if err != nil {
 		log.Printf("gtp request error: %v \n", err)
 		_, err = msg.ReplyText("机器人神了，我一会发现了就去修。")
