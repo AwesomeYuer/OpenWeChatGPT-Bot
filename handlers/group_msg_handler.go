@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"github.com/869413421/wechatbot/gtp"
-	"github.com/eatmoreapple/openwechat"
 	"log"
 	"strings"
+
+	"github.com/869413421/wechatbot/gtp"
+	"github.com/eatmoreapple/openwechat"
 )
 
 var _ MessageHandlerInterface = (*GroupMessageHandler)(nil)
@@ -34,9 +35,9 @@ func (g *GroupMessageHandler) ReplyText(msg *openwechat.Message) error {
 	log.Printf("Received Group %v Text Msg : %v", group.NickName, msg.Content)
 
 	// 不是@的不处理
-	if !msg.IsAt() {
-		return nil
-	}
+	// if !msg.IsAt() {
+	// 	return nil
+	// }
 
 	// 获取@我的用户
 	groupSender, err := msg.SenderInGroup()
@@ -59,7 +60,7 @@ func (g *GroupMessageHandler) ReplyText(msg *openwechat.Message) error {
 	if requestText == "" {
 		return nil
 	}
-	reply, err := gtp.Completions(requestText)
+	reply, err := gtp.Completions(requestText, "code-davinci-002")
 	if err != nil {
 		log.Printf("gtp request error: %v \n", err)
 		_, err = msg.ReplyText("机器人神了，我一会发现了就去修。")

@@ -46,7 +46,7 @@ func (g *UserMessageHandler) ReplyText(msg *openwechat.Message) error {
 	requestText = strings.Trim(msg.Content, "\n")
 
 	requestText = UserService.GetUserSessionContext(sender.ID()) + requestText
-	reply, err := gtp.Completions(requestText)
+	reply, err := gtp.Completions(requestText, "text-davinci-003")
 	if err != nil {
 		log.Printf("gtp request error: %v \n", err)
 		msg.ReplyText("机器人神了，我一会发现了就去修。")
