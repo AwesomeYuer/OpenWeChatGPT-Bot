@@ -78,7 +78,7 @@ func Handler(msg *openwechat.Message) {
 				}
 			}
 		} else {
-			log.Printf("deny new friend : %v", sender.UserName)
+			log.Printf("deny new friend : %v", sender)
 		}
 	}
 
