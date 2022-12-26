@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"fmt"
+	"log"
+	"runtime"
+
 	"github.com/869413421/wechatbot/config"
 	"github.com/869413421/wechatbot/service"
 	"github.com/eatmoreapple/openwechat"
 	"github.com/skip2/go-qrcode"
-	"log"
-	"runtime"
 )
 
 // MessageHandlerInterface 消息处理接口
@@ -25,11 +26,11 @@ const (
 
 // QrCodeCallBack 登录扫码回调，
 func QrCodeCallBack(uuid string) {
-	if runtime.GOOS == "windows" {
+	if 1 == 0 && runtime.GOOS == "windows" {
 		// 运行在Windows系统上
 		openwechat.PrintlnQrcodeUrl(uuid)
 	} else {
-		log.Println("login in linux")
+		log.Println("login in linux/windows")
 		q, _ := qrcode.New("https://login.weixin.qq.com/l/"+uuid, qrcode.Low)
 		fmt.Println(q.ToString(true))
 	}
