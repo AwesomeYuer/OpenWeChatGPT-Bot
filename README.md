@@ -1,3 +1,13 @@
+```shell
+# Linux 下构建项目
+sh build.sh
+```
+
+```shell
+# 启动运行项目
+go run main.go
+```
+
 # wechatbot
 > 最近chatGPT异常火爆，本项目可以将个人微信化身GPT机器人，
 > 项目基于[openwechat](https://github.com/eatmoreapple/openwechat) 开发。
