@@ -50,6 +50,13 @@ func init() {
 
 // Handler 全局处理入口
 func Handler(msg *openwechat.Message) {
+
+	sender, err := msg.Sender()
+	if err != nil {
+		log.Fatalf("msg.Sender() error : %v", err)
+		return
+	}
+
 	log.Printf("hadler Received msg : %v", msg.Content)
 	// 处理群消息
 	if msg.IsSendByGroup() {
@@ -59,7 +66,7 @@ func Handler(msg *openwechat.Message) {
 
 	// 好友申请
 	if msg.IsFriendAdd() {
-		log.Printf("hadler Received msg IsFriendAdd request:\r\n%v,\r\n%v", msg.FromUserName, msg.Content)
+		log.Printf("hadler Received msg IsFriendAdd request:\r\n%v,\r\n%v", sender.NickName, msg.Content)
 		if strings.Contains(msg.Content, " content=\"awesomeyuer\" ") {
 			if config.LoadConfig().AutoPass {
 				_, err := msg.Agree("你好我是基于chatGPT引擎开发的微信机器人，你可以向我提问任何问题。")
@@ -67,11 +74,11 @@ func Handler(msg *openwechat.Message) {
 					log.Fatalf("add friend agree error : %v", err)
 					return
 				} else {
-					log.Printf("accept new friend : %v", msg.FromUserName)
+					log.Printf("accept new friend : %v", sender.NickName)
 				}
 			}
 		} else {
-			log.Printf("deny new friend : %v", msg.FromUserName)
+			log.Printf("deny new friend : %v", sender.NickName)
 		}
 	}
 
