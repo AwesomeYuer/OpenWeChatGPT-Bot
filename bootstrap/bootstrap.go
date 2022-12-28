@@ -1,13 +1,23 @@
 package bootstrap
 
 import (
+	"log"
+	"os"
+
 	"github.com/869413421/wechatbot/handlers"
 	"github.com/eatmoreapple/openwechat"
-	"log"
 )
 
-
 func Run() {
+
+	//var storageJson string = "storage.json"
+	storageJson := "storage.json"
+	if FileIsExisted(storageJson) {
+		os.Remove(storageJson)
+	}
+
+	//return
+
 	//bot := openwechat.DefaultBot()
 	bot := openwechat.DefaultBot(openwechat.Desktop) // 桌面模式，上面登录不上的可以尝试切换这种模式
 
@@ -30,4 +40,12 @@ func Run() {
 	}
 	// 阻塞主goroutine, 直到发生异常或者用户主动退出
 	bot.Block()
+}
+
+func FileIsExisted(filename string) bool {
+	existed := true
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
+		existed = false
+	}
+	return existed
 }
